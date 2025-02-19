@@ -25,14 +25,8 @@ if uploaded_file:
     st.image(image, caption="Загруженное изображение", use_column_width=True)
     
     # Распознаем код
-import easyocr
-
-def extract_code(image):
-    reader = easyocr.Reader(['en'])
-    result = reader.readtext(image)
-    if result:
-        return result[0][-2]  # Берем самый крупный найденный текст
-    return "Код не найден"
+    code = extract_code(image)
+    st.success(f"Распознанный код: {code}")
     
     # Сохранение в Excel
     df = pd.DataFrame([code], columns=["Распознанный код"])

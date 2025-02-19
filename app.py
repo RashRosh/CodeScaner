@@ -1,8 +1,8 @@
 import streamlit as st
 import pandas as pd
+import easyocr
 from PIL import Image
 import io
-import easyocr
 
 # Настройки страницы
 st.set_page_config(page_title="Code Scanner", layout="centered")
@@ -11,11 +11,9 @@ st.set_page_config(page_title="Code Scanner", layout="centered")
 st.title("📸 Code Scanner App")
 st.write("Загрузите изображение с кодом, и приложение автоматически его распознает и сохранит в таблицу Excel.")
 
-# Инициализация EasyOCR
-reader = easyocr.Reader(['en'])
-
 # Функция распознавания кода
 def extract_code(image):
+    reader = easyocr.Reader(['en'])
     result = reader.readtext(image)
     if result:
         return result[0][-2]  # Берем самый крупный найденный текст
